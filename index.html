@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main>
+
+        <h1>Lista de Compras</h1>
+        <form name="lista">
+            <input type="text" name="nomeProduto" placeholder="Produto">
+            <input type="button" value="Adicionar" onclick="setDataInArray()">
+    
+            <br>
+            <br>
+    
+            <textarea name="listaProdutos" cols="30" rows="10"></textarea>
+        </form>
+    </main>    
+    
+    <script>
+        var arrCompras = [];
+
+        function setDataInArray () {
+            var novoProduto = document.lista.nomeProduto.value;
+            const productAlreadyExists = arrCompras.find(produto => produto === novoProduto)
+
+            if(novoProduto != '' && ! productAlreadyExists) {
+                arrCompras.push(novoProduto);
+            }
+            document.lista.listaProdutos.value = '';
+
+            for(var produto of arrCompras) {
+                document.lista.listaProdutos.value += produto + '\n'
+            }
+            document.lista.listaProdutos.value += `\n\nNúmero Total de Produtos Adicionados: ${arrCompras.length}`;
+            document.lista.nomeProduto.value = '';
+        }
+    </script>
+</body>
+</html>
