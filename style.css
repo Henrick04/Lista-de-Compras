@@ -9,6 +9,10 @@ body{
     background-image: linear-gradient(to right, #053D37, #DFE3E2);
 }
 
+main{
+    position: auto;
+}
+
 h1 {
     font-weight: 600;
     margin-bottom: 2rem;
@@ -33,7 +37,7 @@ input{
     border-radius: 15px 0px;
     border: none;
     cursor: text;
-    width: 15%;
+    width: 10%;
 
 }
 
@@ -42,7 +46,6 @@ button{
     border: none;
     margin-top: 15px;
     margin-bottom: 15px;
-    width: 20%;
     color: whitesmoke;
     border-radius: 15px 0px;
     font: 12px;
@@ -59,4 +62,13 @@ button:hover {
 
 ::placeholder{
     color: rgba(0, 0, 0, 0.5);
+}
+
+textarea{
+    border-radius: 15px 0px;
+    font: 12px;
+    border: none;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
 }
