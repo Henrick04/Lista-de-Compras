@@ -5,52 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Compras</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main>
-      <h1>Lista de Compras</h1>
-      <form name="lista">
-        <input type="text" name="nomeProduto" placeholder="Produto" />
-        <input
-          type="button"
-          value="Adicionar"
-          onclick="adicionar(); mostrar()"
-        />
 
-        <br />
-        <br />
-
-        <textarea name="listaProdutos" cols="30" rows="10"></textarea>
-      </form>
-    </main>
-
+    <style>
+      * {
+        padding: 5px;
+      }
+    </style>
     <script>
-      var arrayCompras = [];
+     var arrayCompras = [];
+     
 
-      function adicionar() {
-        var nome = document.formulario.nomeProduto.value;
-        var preco = document.formulario.valorProduto.value;
-        const productAlreadyExists = arrayCompras.find(
-          (compra) => compra.nome === nome
-        );
-        if (nome != "" && !productAlreadyExists) {
-          // **AQUI**: em vez de inserir sempre o mesmo objeto product, crie sempre um novo
-          arrayCompras.push({ nome, preco });
-        }
-        document.formulario.nomeProduto.value = "";
-        document.formulario.valorProduto.value = "";
-      }
+function adicionar() {
 
-      // separei as funções de adicionar e mostrar, já que são coisas diferentes
-      function mostrar() {
-        document.formulario.listaProdutos.value = "";
-        for (var compra of arrayCompras) {
-          document.formulario.listaProdutos.value +=
-            compra.nome + " -> " + compra.preco + " €" + "\n";
-        }
-        document.formulario.listaProdutos.value += `\n\nNúmero Total de Produtos: ${arrayCompras.length};`;
-      }
+  let produto = {
+  nome: document.formulario.nomeProduto.value,
+  preco: document.formulario.valorProduto.value,
+  mostrar: function () {
+    return this.nome + " -> " + this.preco + " €" + "\n"
+  }
+}
+    
+    const productAlreadyExists = arrayCompras.find(compra => compra.nome === produto.nome);
+    if (produto.nome!= "" && !productAlreadyExists) {
+        
+        arrayCompras.push(produto);
+    }
+    document.formulario.nomeProduto.value = "";
+    document.formulario.valorProduto.value = "";
+}
+
+
+function mostrar() {
+
+  document.formulario.listaProdutos.value = "";
+  for (var compra of arrayCompras) {
+    document.formulario.listaProdutos.value += compra.mostrar();
+  }
+  document.formulario.listaProdutos.value += `\n\nNúmero Total de Produtos: ${arrayCompras.length};`;
+}
     </script>
+  </head>
+
+  <body>
+    <form name="formulario">
+      <input type="text" name="nomeProduto" placeholder="Produto" />
+      <input type="number" name="valorProduto" placeholder="Preço" />
+      <input type="button" value="Adicionar Produto" onclick="adicionar();mostrar()" />
+    
+      <br />
+      <br />
+      <textarea name="listaProdutos" cols="40" rows="10" readonly></textarea>
+    </form>
+    
   </body>
 </html>
