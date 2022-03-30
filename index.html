@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Compras</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <main>
+      <h1>Lista de Compras</h1>
+      <form name="lista">
+        <input type="text" name="nomeProduto" placeholder="Produto" />
+        <input
+          type="button"
+          value="Adicionar"
+          onclick="adicionar(); mostrar()"
+        />
 
-        <h1>Lista de Compras</h1>
-        <form name="lista">
-            <input type="text" name="nomeProduto" placeholder="Produto">
-            <input type="button" value="Adicionar" onclick="setDataInArray()">
-    
-            <br>
-            <br>
-    
-            <textarea name="listaProdutos" cols="30" rows="10"></textarea>
-        </form>
-    </main>    
-    
+        <br />
+        <br />
+
+        <textarea name="listaProdutos" cols="30" rows="10"></textarea>
+      </form>
+    </main>
+
     <script>
-        var arrCompras = [];
+      var arrayCompras = [];
 
-        function setDataInArray () {
-            var novoProduto = document.lista.nomeProduto.value;
-            const productAlreadyExists = arrCompras.find(produto => produto === novoProduto)
-
-            if(novoProduto != '' && ! productAlreadyExists) {
-                arrCompras.push(novoProduto);
-            }
-            document.lista.listaProdutos.value = '';
-
-            for(var produto of arrCompras) {
-                document.lista.listaProdutos.value += produto + '\n'
-            }
-            document.lista.listaProdutos.value += `\n\nNúmero Total de Produtos Adicionados: ${arrCompras.length}`;
-            document.lista.nomeProduto.value = '';
+      function adicionar() {
+        var nome = document.formulario.nomeProduto.value;
+        var preco = document.formulario.valorProduto.value;
+        const productAlreadyExists = arrayCompras.find(
+          (compra) => compra.nome === nome
+        );
+        if (nome != "" && !productAlreadyExists) {
+          // **AQUI**: em vez de inserir sempre o mesmo objeto product, crie sempre um novo
+          arrayCompras.push({ nome, preco });
         }
+        document.formulario.nomeProduto.value = "";
+        document.formulario.valorProduto.value = "";
+      }
+
+      // separei as funções de adicionar e mostrar, já que são coisas diferentes
+      function mostrar() {
+        document.formulario.listaProdutos.value = "";
+        for (var compra of arrayCompras) {
+          document.formulario.listaProdutos.value +=
+            compra.nome + " -> " + compra.preco + " €" + "\n";
+        }
+        document.formulario.listaProdutos.value += `\n\nNúmero Total de Produtos: ${arrayCompras.length};`;
+      }
     </script>
-</body>
+  </body>
 </html>
